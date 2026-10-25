@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="gsap.min.js"></script>
+    <style>
+      :root { --ground:#0b1020; --ink:#f5f7ff; --accent:#6ee7ff; --accent2:#a78bfa; --font-display: "Helvetica Neue", Arial, sans-serif; }
+      * { margin:0; padding:0; box-sizing:border-box; }
+      html, body { width:1920px; height:1080px; overflow:hidden; background:var(--ground); }
+      #root { position:relative; width:100%; height:100%; font-family:var(--font-display); color:var(--ink);
+        background: radial-gradient(circle at 20% 20%, #1b2550 0%, var(--ground) 60%); }
+      .abs { position:absolute; left:0; right:0; text-align:center; }
+      #orb { position:absolute; width:520px; height:520px; border-radius:50%; left:700px; top:280px;
+        background: linear-gradient(135deg, var(--accent), var(--accent2)); filter: blur(2px); }
+      #t1 { top:430px; font-size:140px; font-weight:700; letter-spacing:-0.04em; }
+      #t2 { top:620px; font-size:56px; color:var(--accent); letter-spacing:0.02em; }
+      #t3 { top:400px; font-size:120px; font-weight:700; letter-spacing:-0.03em; }
+      #t4 { top:580px; font-size:52px; opacity:.85; }
+      #bar { position:absolute; left:360px; top:900px; height:8px; width:1200px; background:linear-gradient(90deg,var(--accent),var(--accent2)); border-radius:4px; transform-origin:left; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="8" data-width="1920" data-height="1080">
+      <div id="orb" class="clip" data-start="0" data-duration="8" data-track-index="0"></div>
+      <h1 id="t1" class="abs clip" data-start="0" data-duration="4" data-track-index="1">Привет, HyperFrames</h1>
+      <p id="t2" class="abs clip" data-start="0.6" data-duration="3.4" data-track-index="2">HTML → видео</p>
+      <h1 id="t3" class="abs clip" data-start="4" data-duration="4" data-track-index="1">Пишешь HTML.<br />Получаешь MP4.</h1>
+      <p id="t4" class="abs clip" data-start="4.8" data-duration="3.2" data-track-index="2">Сделано с помощью Claude Code</p>
+      <div id="bar" class="clip" data-start="0" data-duration="8" data-track-index="3"></div>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#orb", { scale: 0.2, opacity: 0 }, { scale: 1, opacity: 0.9, duration: 1.2, ease: "power3.out" }, 0);
+      tl.to("#orb", { x: 500, y: -80, scale: 0.5, duration: 1.2, ease: "power2.inOut" }, 3.8);
+      tl.to("#orb", { x: -500, y: 80, scale: 0.7, duration: 3, ease: "sine.inOut" }, 5);
+      tl.fromTo("#t1", { opacity: 0, y: 40, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "power4.out" }, 0.3);
+      tl.fromTo("#t2", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.9);
+      tl.to(["#t1", "#t2"], { opacity: 0, y: -30, duration: 0.4, ease: "power2.in" }, 3.55);
+      tl.fromTo("#t3", { opacity: 0, y: 40, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "power4.out" }, 4.1);
+      tl.fromTo("#t4", { opacity: 0, y: 20 }, { opacity: 0.85, y: 0, duration: 0.5, ease: "power3.out" }, 4.9);
+      tl.fromTo("#bar", { scaleX: 0 }, { scaleX: 1, duration: 8, ease: "none" }, 0);
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
